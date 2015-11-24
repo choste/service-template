@@ -1,7 +1,12 @@
 apply plugin: 'java'
 
-dependencies {
+repositories {
+  mavenCentral()
+}
 
+dependencies {
+  testCompile 'junit:junit:4.12'
+  testCompile 'com.jayway.restassured:rest-assured:2.7.0'
 }
 
 sourceSets {
