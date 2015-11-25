@@ -1,7 +1,17 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
-apply plugin: 'spring-boot'
+apply plugin: 'org.akhikhl.gretty'
 apply from: 'gradle/integration.gradle'
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'org.akhikhl.gretty:gretty:+'
+  }
+}
 
 repositories {
   mavenCentral()
@@ -25,12 +35,8 @@ dependencies {
   testCompile 'com.jayway.restassured:rest-assured:2.7.0'
 }
 
-
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.0.RELEASE")
-  }
+gretty {
+  springBoot = true
+  springBootVersion = '1.3.0.RELEASE'
+  integrationTestTask = 'integrationTest'
 }
