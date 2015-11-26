@@ -1,5 +1,13 @@
 apply plugin: 'jacoco'
 
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+
 gretty {
     afterEvaluate {
 
@@ -9,6 +17,7 @@ gretty {
         }
 
         tasks.appAfterIntegrationTest.finalizedBy tasks.integrationTestServerReport
+        tasks.test.finalizedBy tasks.testReport
     }
 }
 
@@ -41,13 +50,4 @@ task('testReport', type: JacocoReport) {
     doLast {
         println "Jacoco report for unit tests created: file://${reportDir.toURI().path}"
     }
-}
-
-test {
-    jacoco {
-        append = false
-        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
-        classDumpFile = file("$buildDir/jacoco/classpathdumps")
-    }
-    finalizedBy tasks.testReport
 }

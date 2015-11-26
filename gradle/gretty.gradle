@@ -1,0 +1,14 @@
+/*************************************************************************************************
+ *                                Gretty and container configurations                            *
+ *This gradle file contains the configurations for gretty. Gretty provides us with a way to run  *
+ *the application for integration tests. Starting the service before the integrationTest task    *
+ *and stopping it after. Gretty also adds the buildProduct task to build the web service which   *
+ *can be deployed on any machine or image with java.                                             *
+ *************************************************************************************************/
+apply plugin: 'org.akhikhl.gretty'
+
+gretty {
+    springBoot = true
+    springBootVersion = '1.3.0.RELEASE'
+    integrationTestTask = 'integrationTest'
+}

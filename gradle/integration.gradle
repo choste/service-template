@@ -1,3 +1,19 @@
+/*************************************************************************************************
+ *                                    Integration test configurations                            *
+ *This gradle file sets up a new source set directory under src/integration/java which allows    *
+ *for integration test to be stored in a separate directory than unit tests. This also creates   *
+ *the integrationTest task and puts it into the build chain after test, but before check tasks.  *
+ *                                                                                               *
+ *Rest assured is used for integration test to provide some nice syntactic sugar around the http *
+ *client. Junit is used as a test runner.                                                        *
+ *************************************************************************************************/
+
+dependencies {
+    //integration dependencies
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.jayway.restassured:rest-assured:2.7.0'
+}
+
 sourceSets {
     integrationTest {
         java {
