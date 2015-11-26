@@ -1,0 +1,53 @@
+apply plugin: 'jacoco'
+
+gretty {
+    afterEvaluate {
+
+        tasks.appBeforeIntegrationTest.jacoco {
+            append = false
+            destinationFile = new File(project.buildDir, 'jacoco/integrationTest_server.exec')
+        }
+
+        tasks.appAfterIntegrationTest.finalizedBy tasks.integrationTestServerReport
+    }
+}
+
+task('integrationTestServerReport', type: JacocoReport) {
+    executionData = fileTree(dir: 'build/jacoco', include: '**/*.exec')
+
+    sourceDirectories = project.files(project.sourceSets.main.allSource.srcDirs)
+    classDirectories = project.sourceSets.main.output
+
+    def reportDir = project.reporting.file("jacoco/combinedCoverage/html")
+    reports {
+        html.destination = reportDir
+    }
+    doLast {
+        println "Jacoco report for unit and integration tests created: file://${reportDir.toURI().path}"
+    }
+}
+
+task('testReport', type: JacocoReport) {
+
+    executionData { tasks.test.jacoco.destinationFile }
+
+    sourceDirectories = project.files(project.sourceSets.main.allSource.srcDirs)
+    classDirectories = project.sourceSets.main.output
+
+    def reportDir = project.reporting.file("jacoco/unitCoverage/html")
+    reports {
+        html.destination = reportDir
+    }
+    doLast {
+        println "Jacoco report for unit tests created: file://${reportDir.toURI().path}"
+    }
+}
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+    finalizedBy tasks.testReport
+}

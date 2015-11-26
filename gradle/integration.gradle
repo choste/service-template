@@ -15,9 +15,9 @@ configurations {
 }
 
 task integrationTest(type: Test) {
+    outputs.upToDateWhen { false }
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath
-    outputs.upToDateWhen { false }
 }
 
 check.dependsOn integrationTest

@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'org.akhikhl.gretty'
 apply from: 'gradle/integration.gradle'
+apply from: 'gradle/codeCoverage.gradle'
 
 buildscript {
   repositories {
