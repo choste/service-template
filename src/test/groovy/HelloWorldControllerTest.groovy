@@ -3,7 +3,7 @@ import spock.lang.Specification
 
 class HelloWorldControllerTest extends Specification {
 
-    def 'someMethod() forwards to service and returns result as a JSON'() {
+    def 'Hello controller returns hello'() {
         given: "a hello controller"
         def helloWorldController = new HelloWorldController()
 
